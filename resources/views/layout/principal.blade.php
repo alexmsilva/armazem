@@ -6,6 +6,6 @@
 		<!--<script type="text/javascript" src="/js/bootstrap.min.js"></script>-->
 	</head>
 	<body>
-		@yield("conteudo")
+		<div class="container">@yield("conteudo")</div>
 	</body>
 </html>
