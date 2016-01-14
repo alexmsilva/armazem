@@ -10,6 +10,11 @@ class ProdutoController extends Controller {
 		return view("produto.listagem")->with('produtos', $produtos);
 	}
 
+	public function listaJson(){
+		$produtos = DB::select("SELECT * FROM produtos");
+		return response()->json($produtos);
+	}
+
 	public function mostra() {
 		$id = Request::route("id");
 		$produto = DB::select("SELECT * FROM produtos WHERE id = ?", array($id));
@@ -30,6 +35,7 @@ class ProdutoController extends Controller {
 		DB::insert("INSERT INTO produtos (nome,descricao,valor,quantidade) VALUES (?, ?, ?, ?)",
 			array($nome, $descricao, $valor, $quantidade));
 
-		return view("produto.adicionado")->with("nome", $nome);
+		//return redirect("/produtos")->withInput();
+		return redirect()->action("ProdutoController@lista")->withInput(Request::only("nome"));
 	}
 }

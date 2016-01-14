@@ -6,6 +6,11 @@
 	<div class="alert alert-danger">Você não tem nenhum produto cadastrado.</div>
 	@else
 	<h1>Listagem de Produtos</h1>
+
+	@if(old("nome"))
+		<div class="alert alert-success">O produto {{old("nome")}} foi adicionado com sucesso.</div>
+	@endif
+
 	<table class="table table-striped table-bordered table-hover">
 		@foreach($produtos as $p)
 		<tr class="{{$p->quantidade <= 1 ? 'danger' : ''}}">
