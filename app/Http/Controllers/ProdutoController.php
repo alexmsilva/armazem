@@ -1,25 +1,23 @@
 <?php namespace armazem\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Request;
+use armazem\Produto;
 
 class ProdutoController extends Controller {
 	
 	public function lista() {
-		$produtos = DB::select("SELECT * FROM produtos");
+		$produtos = Produto::all();
 		return view("produto.listagem")->with('produtos', $produtos);
 	}
 
 	public function listaJson(){
-		$produtos = DB::select("SELECT * FROM produtos");
+		$produtos = Produto::all();
 		return response()->json($produtos);
 	}
 
-	public function mostra() {
-		$id = Request::route("id");
-		$produto = DB::select("SELECT * FROM produtos WHERE id = ?", array($id));
-
-		return view("produto.detalhes")->with("produto", $produto[0]);
+	public function mostra($id) {
+		$produto = Produto::find($id);
+		return view("produto.detalhes")->with("produto", $produto);
 	}
 
 	public function novo() {
@@ -27,15 +25,13 @@ class ProdutoController extends Controller {
 	}
 
 	public function adiciona() {
-		$nome = Request::input("nome");
-		$descricao = Request::input("descricao");
-		$valor = Request::input("valor");
-		$quantidade = Request::input("quantidade");
-
-		DB::insert("INSERT INTO produtos (nome,descricao,valor,quantidade) VALUES (?, ?, ?, ?)",
-			array($nome, $descricao, $valor, $quantidade));
-
-		//return redirect("/produtos")->withInput();
+		Produto::create(Request::all());
 		return redirect()->action("ProdutoController@lista")->withInput(Request::only("nome"));
+	}
+
+	public function remove($id){
+		$produto = Produto::find($id);
+		$produto->delete();
+		return redirect()->action('ProdutoController@lista');
 	}
 }
