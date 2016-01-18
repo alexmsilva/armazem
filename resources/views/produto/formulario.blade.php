@@ -19,6 +19,10 @@
 		<label>Quantidade</label>
 		<input type="number" class="form-control" name="quantidade" />
 	</div>
+	<div class="form-group">
+		<label>Tamanho</label>
+		<input class="form-control" name="tamanho" />
+	</div>
 	<button type="submit" class="btn btn-primary">Adicionar</button>
 </form>
 @stop
