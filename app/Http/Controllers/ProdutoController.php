@@ -2,6 +2,7 @@
 
 use Request;
 use armazem\Produto;
+use armazem\Http\Requests\ProdutosRequest;
 
 class ProdutoController extends Controller {
 	
@@ -24,8 +25,9 @@ class ProdutoController extends Controller {
 		return view("produto.formulario");
 	}
 
-	public function adiciona() {
-		Produto::create(Request::all());
+	public function adiciona(ProdutosRequest $request) {
+		// o validator já faz a validação e se não der certo, redireciona para o formulário com a variável errors setada
+		Produto::create($request->all());
 		return redirect()->action("ProdutoController@lista")->withInput(Request::only("nome"));
 	}
 
