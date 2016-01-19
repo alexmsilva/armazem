@@ -11,9 +11,9 @@
 |
 */
 
-Route::get("/", function() {
+/*Route::get("/", function() {
 	return "<h1>Primeira lógica com Laravel</h1>";
-});
+});*/
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +27,16 @@ Route::get("/", function() {
 */
 
 Route::group(['middleware' => ['web']], function() {
-
+	Route::get("/", "ProdutoController@lista");
 	Route::get("/produtos", "ProdutoController@lista");
 	Route::get("/produtos/json", "ProdutoController@listaJson");
 	Route::get("/produtos/mostra/{id}", "ProdutoController@mostra");
 	Route::get("/produtos/remove/{id}", "ProdutoController@remove");
 	Route::get("/produtos/novo", "ProdutoController@novo");
 	Route::post("/produtos/adiciona", "ProdutoController@adiciona");
-	
+});
+
+Route::group(['middleware' => 'web'], function () {
+	Route::auth();
+	Route::get('/home', 'HomeController@index');
 });

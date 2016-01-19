@@ -5,6 +5,10 @@ use armazem\Produto;
 use armazem\Http\Requests\ProdutosRequest;
 
 class ProdutoController extends Controller {
+
+	public function __construct() {
+		$this->middleware("auth", array('only'=>array('novo','adiciona','remove')));
+	} 
 	
 	public function lista() {
 		$produtos = Produto::all();
