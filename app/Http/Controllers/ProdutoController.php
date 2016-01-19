@@ -2,6 +2,7 @@
 
 use Request;
 use armazem\Produto;
+use armazem\Categoria;
 use armazem\Http\Requests\ProdutosRequest;
 
 class ProdutoController extends Controller {
@@ -26,7 +27,7 @@ class ProdutoController extends Controller {
 	}
 
 	public function novo() {
-		return view("produto.formulario");
+		return view("produto.formulario")->with('categorias', Categoria::all());
 	}
 
 	public function adiciona(ProdutosRequest $request) {

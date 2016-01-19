@@ -27,6 +27,14 @@
 		<input class="form-control" name="valor" value="{{old('valor')}}" />
 	</div>
 	<div class="form-group">
+		<label>Categoria</label>
+		<select name="categoria_id" class="form-control">
+			@foreach($categorias as $c)
+			<option value="{{$c->id}}">{{$c->nome}}</option>
+			@endforeach
+		</select>    
+	</div>
+	<div class="form-group">
 		<label>Quantidade</label>
 		<input type="number" class="form-control" name="quantidade" value="{{old('quantidade')}}" />
 	</div>
